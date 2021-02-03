@@ -110,6 +110,7 @@ function Signup() {
                                 name="password"
                                 autoComplete="password"
                                 onChange={(event) => customOnChange('password', event)}
+                                type="password"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -122,6 +123,7 @@ function Signup() {
                                 name="reEnterPassword"
                                 autoComplete="Re-enter Password"
                                 onChange={(event) => customOnChange('reenterpassword', event)}
+                                type="password"
                             />
                         </Grid>
 
