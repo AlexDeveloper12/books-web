@@ -1,16 +1,14 @@
 import React from 'react';
 
 
-function Books(){
+function Books() {
 
+    return (
+        <div>
 
-    render(){
-        return(
-            <div>
-                
-            </div>
-        )
-    }
+        </div>
+    )
+
 
 
 }
