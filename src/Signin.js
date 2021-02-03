@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+
+import calls from '../API/calls';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 
@@ -13,12 +16,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { FaBookOpen } from 'react-icons/fa';
 import swal from 'sweetalert';
+import axios from 'axios';
 
 function Signup() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [reEnterPassword, setReEnterPassword] = useState('');
 
     const useStyles = makeStyles((theme) => ({
         paper: {
@@ -55,10 +58,6 @@ function Signup() {
             errorString += 'Please enter a password\n';
         }
 
-        if (reEnterPassword.length === 0) {
-            errorString += 'Please re-enter a password\n';
-        }
-
         if (errorString === '') {
 
             //run axios call here and then show swal
@@ -87,12 +86,36 @@ function Signup() {
             case 'password':
                 setPassword(eventValue);
                 break;
-            case 'reenterpassword':
-                setReEnterPassword(eventValue);
-                break;
         }
 
         console.log(eventValue);
+    }
+
+    const SignIn = () =>{
+
+        const headerInfo = {
+            'Content-Type':'application/json'
+        };
+
+        const myData = JSON.stringify({
+            email:email,
+            password:password
+        });
+
+
+        axios({
+            method:'POST',
+            url:calls.signin,
+            data:myData,
+            headers:headerInfo
+        })
+        .then(response=>{
+            //if success then need to redirect to books home page
+            //else show alert
+        })
+        .catch(error=>{
+            console.log('SignIn error: ' + error);
+        })
     }
 
 
@@ -147,7 +170,7 @@ function Signup() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            onClick={SignUp}
+                            onClick={SignIn}
 
                         >Sign in</Button>
 
