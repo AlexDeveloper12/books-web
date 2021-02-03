@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import calls from '../API/calls';
+import calls from './API/calls';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -46,9 +46,18 @@ function Signup() {
     const classes = useStyles();
 
 
-    const SignUp = () => {
+    const SignInUser = () => {
 
         let errorString = '';
+
+        const myData = JSON.stringify({
+            email: email,
+            password: password
+        });
+
+        const headerInfo = {
+            'Content-Type': 'application/json'
+        };
 
         if (email.length === 0) {
             errorString += 'Please enter an email address\n';
@@ -60,13 +69,21 @@ function Signup() {
 
         if (errorString === '') {
 
-            //run axios call here and then show swal
-            //alert
-            // swal({
-            //     title: 'Verification',
-            //     text: 'Please check your inbox to verify your account!',
-            //     icon: 'success'
-            // });
+            axios({
+                method: 'POST',
+                url: calls.signin,
+                data: myData,
+                headers: headerInfo
+            })
+                .then(response => {
+                    console.log(response);
+                    if(response.status===200){
+                        //here i will need to set jwt and refresh token then redirect 
+                    }
+                })
+                .catch(error => {
+                    console.log('SignIn error: ' + error);
+                });
 
         } else {
             swal({
@@ -81,42 +98,16 @@ function Signup() {
     const customOnChange = (eventName, eventValue) => {
         switch (eventName) {
             case 'email':
-                setEmail(eventValue);
+                setEmail(eventValue.target.value);
                 break;
             case 'password':
-                setPassword(eventValue);
+                setPassword(eventValue.target.value);
                 break;
         }
 
         console.log(eventValue);
     }
 
-    const SignIn = () =>{
-
-        const headerInfo = {
-            'Content-Type':'application/json'
-        };
-
-        const myData = JSON.stringify({
-            email:email,
-            password:password
-        });
-
-
-        axios({
-            method:'POST',
-            url:calls.signin,
-            data:myData,
-            headers:headerInfo
-        })
-        .then(response=>{
-            //if success then need to redirect to books home page
-            //else show alert
-        })
-        .catch(error=>{
-            console.log('SignIn error: ' + error);
-        })
-    }
 
 
     return (
@@ -146,6 +137,7 @@ function Signup() {
                                 id="email"
                                 label="Email"
                                 autoFocus
+                                type="email"
                                 onChange={(event) => customOnChange('email', event)}
                             />
                         </Grid>
@@ -161,6 +153,7 @@ function Signup() {
                                 autoComplete="password"
                                 onChange={(event) => customOnChange('password', event)}
                                 type="password"
+
                             />
                         </Grid>
 
@@ -170,7 +163,7 @@ function Signup() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            onClick={SignIn}
+                            onClick={SignInUser}
 
                         >Sign in</Button>
 
