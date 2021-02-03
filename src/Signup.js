@@ -45,11 +45,38 @@ function Signup() {
 
     const SignUp = () => {
 
-        swal({
-            title: 'Verification',
-            text: 'Please check your inbox to verify your account!',
-            icon: 'success'
-        });
+        let errorString = '';
+
+        if (email.length === 0) {
+            errorString += 'Please enter an email address\n';
+        }
+
+        if (password.length === 0) {
+            errorString += 'Please enter a password\n';
+        }
+
+        if (reEnterPassword.length === 0) {
+            errorString += 'Please re-enter a password\n';
+        }
+
+        if (errorString === '') {
+
+            //run axios call here and then show swal
+            //alert
+            // swal({
+            //     title: 'Verification',
+            //     text: 'Please check your inbox to verify your account!',
+            //     icon: 'success'
+            // });
+
+        } else {
+            swal({
+                title: 'Error',
+                text: errorString,
+                icon: 'error'
+            });
+        }
+
     }
 
     const customOnChange = (eventName, eventValue) => {
