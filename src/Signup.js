@@ -8,11 +8,11 @@ import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 
-
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {FaBookOpen} from 'react-icons/fa';
+import { FaBookOpen } from 'react-icons/fa';
+import swal from 'sweetalert';
 
 function Signup() {
 
@@ -43,12 +43,17 @@ function Signup() {
     const classes = useStyles();
 
 
-    const SignUp = () =>{
+    const SignUp = () => {
 
+        swal({
+            title: 'Verification',
+            text: 'Please check your inbox to verify your account!',
+            icon: 'success'
+        });
     }
 
-    const customOnChange = (eventName,eventValue) =>{
-        switch(eventName){
+    const customOnChange = (eventName, eventValue) => {
+        switch (eventName) {
             case 'email':
                 setEmail(eventValue);
                 break;
@@ -72,7 +77,7 @@ function Signup() {
 
                 </Avatar> */}
 
-                <FaBookOpen size={50}/>
+                <FaBookOpen size={50} />
 
 
                 <Typography component="h1" variant="h5">
@@ -91,7 +96,7 @@ function Signup() {
                                 id="email"
                                 label="Email"
                                 autoFocus
-                                onChange={(event)=>customOnChange('email',event)}
+                                onChange={(event) => customOnChange('email', event)}
                             />
                         </Grid>
 
@@ -104,7 +109,7 @@ function Signup() {
                                 label="Password"
                                 name="password"
                                 autoComplete="password"
-                                onChange={(event)=>customOnChange('password',event)}
+                                onChange={(event) => customOnChange('password', event)}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -116,17 +121,19 @@ function Signup() {
                                 label="Re-enter Password"
                                 name="reEnterPassword"
                                 autoComplete="Re-enter Password"
-                                onChange={(event)=>customOnChange('reenterpassword',event)}
+                                onChange={(event) => customOnChange('reenterpassword', event)}
                             />
                         </Grid>
 
-                        <Button 
-                            type="submit"
+                        <Button
+                            type="button"
                             fullWidth
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            >Sign Up</Button>
+                            onClick={SignUp}
+
+                        >Sign Up</Button>
 
                         <Grid container justify="flex-end">
                             <Grid item>
