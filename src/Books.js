@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import calls from '../src/API/calls';
-import GridList from '@material-ui/core/GridList';
+import { FaPen } from 'react-icons/fa';
+import EditBookModal from './modals/EditBookModal';
+
+
+import HorizontalNavigator from './HorizontalNavigator';
 
 function Books() {
 
     const [book, setBooks] = useState([]);
+    const [editModal, setEditModal] = useState(false);
 
-    useEffect(()=>{
+    useEffect(() => {
         GetBooks();
-    },[]);
+    }, []);
 
 
     const GetBooks = () => {
@@ -24,7 +29,7 @@ function Books() {
         axios({
             method: 'GET',
             url: calls.books,
-            headers:headerInfo
+            headers: headerInfo
         })
             .then(response => {
                 setBooks(response.data.message[0]);
@@ -35,12 +40,33 @@ function Books() {
             })
     }
 
+    const ToggleModal = () => {
+        setEditModal(!setEditModal);
+    }
+
     return (
         <div>
+            <div>
+                <HorizontalNavigator/> 
+            </div>
 
-            {book.map(function(item,index){
-                return <span>{item.Title}</span>
+            {book.map(function (item, index) {
+                return (
+                    <div key={item.BookID}>
+                        <span style={{ textAlign: 'center' }}>{item.Title}</span>
+                        <FaPen size={20} onClick={ToggleModal} />
+                        <img src={item.Image} width={300} height={250} />
+                    </div>
+                )
             })}
+
+            <div>
+                <EditBookModal
+                    isVisible={editModal}
+                />
+            </div>
+
+
 
         </div>
     )
