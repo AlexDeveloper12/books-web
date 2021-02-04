@@ -18,7 +18,7 @@ import { FaBookOpen } from 'react-icons/fa';
 import swal from 'sweetalert';
 import axios from 'axios';
 
-function Signup() {
+function Signup({history}) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -78,7 +78,10 @@ function Signup() {
                 .then(response => {
                     console.log(response);
                     if(response.status===200){
-                        //here i will need to set jwt and refresh token then redirect 
+                        //here i will need to set jwt and refresh token then redirect
+                        localStorage.setItem('token',response.data.message.token);
+                        localStorage.setItem('refreshToken',response.data.message.refreshToken);
+                        history.push('/books');
                     }
                 })
                 .catch(error => {
