@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import calls from '../src/API/calls';
 import EditBookModal from './modals/EditBookModal';
-
+import { FaArrowCircleUp } from 'react-icons/fa';
 
 function Books() {
 
@@ -49,7 +49,7 @@ function Books() {
     }
 
     const scrollToTop = () => {
-        window.scrollTo({top:0,left:0,behavior:'smooth'});
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }
 
     return (
@@ -65,7 +65,7 @@ function Books() {
                 )
             })}
 
-            <button onClick={() => scrollToTop()}>scroll to top </button>
+            <FaArrowCircleUp size={30} onClick={() => scrollToTop()} />
 
             <div>
                 <EditBookModal
