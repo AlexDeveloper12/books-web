@@ -2,7 +2,7 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-.user-book:hover{
+.user-book:hover > .book-image{
 
     opacity: 0.6;
 }
@@ -14,8 +14,9 @@
 
 .book-title{
     text-align: center;
-    background-color: red;
+    background-color: #1873D3;
     margin-top: 0;
-    padding-top: 10;
-    padding-bottom: 10;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color:white;
 }
