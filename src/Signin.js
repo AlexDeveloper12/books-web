@@ -18,10 +18,13 @@ import { FaBookOpen } from 'react-icons/fa';
 import swal from 'sweetalert';
 import axios from 'axios';
 
-function Signup({history}) {
+function Signup({ history }) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [disableEmail, setDisableEmail] = useState(false);
+    const [disablePassword, setDisablePassword] = useState(false);
+    const [disableButton, setDisableButton] = useState(false);
 
     const useStyles = makeStyles((theme) => ({
         paper: {
@@ -69,6 +72,10 @@ function Signup({history}) {
 
         if (errorString === '') {
 
+            setDisableEmail(true);
+            setDisablePassword(true);
+            setDisableButton(true);
+
             axios({
                 method: 'POST',
                 url: calls.signin,
@@ -77,11 +84,15 @@ function Signup({history}) {
             })
                 .then(response => {
                     console.log(response);
-                    if(response.status===200){
+                    if (response.status === 200) {
                         //here i will need to set jwt and refresh token then redirect
-                        localStorage.setItem('token',response.data.message.token);
-                        localStorage.setItem('refreshToken',response.data.message.refreshToken);
+                        localStorage.setItem('token', response.data.message.token);
+                        localStorage.setItem('refreshToken', response.data.message.refreshToken);
                         history.push('/books');
+
+                        setDisableEmail(false);
+                        setDisablePassword(false);
+                        setDisableButton(false);
                     }
                 })
                 .catch(error => {
@@ -142,6 +153,7 @@ function Signup({history}) {
                                 autoFocus
                                 type="email"
                                 onChange={(event) => customOnChange('email', event)}
+                                disabled={disableEmail}
                             />
                         </Grid>
 
@@ -156,6 +168,7 @@ function Signup({history}) {
                                 autoComplete="password"
                                 onChange={(event) => customOnChange('password', event)}
                                 type="password"
+                                disabled={disablePassword}
 
                             />
                         </Grid>
@@ -167,6 +180,7 @@ function Signup({history}) {
                             color="primary"
                             className={classes.submit}
                             onClick={SignInUser}
+                            disabled={disableButton}
 
                         >Sign in</Button>
 

@@ -1,0 +1,21 @@
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.user-book:hover{
+
+    opacity: 0.6;
+}
+
+.book-image{
+    margin:0 auto;
+    display: block;
+}
+
+.book-title{
+    text-align: center;
+    background-color: red;
+    margin-top: 0;
+    padding-top: 10;
+    padding-bottom: 10;
+}

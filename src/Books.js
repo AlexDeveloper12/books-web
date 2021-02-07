@@ -3,9 +3,8 @@ import axios from 'axios';
 import calls from '../src/API/calls';
 import { FaPen } from 'react-icons/fa';
 import EditBookModal from './modals/EditBookModal';
-
-
 import HorizontalNavigator from './HorizontalNavigator';
+import Book from './Book';
 
 function Books() {
 
@@ -32,6 +31,9 @@ function Books() {
             headers: headerInfo
         })
             .then(response => {
+
+                console.log(response.data.message[0]);
+                console.log(typeof (response.data.message[0]));
                 setBooks(response.data.message[0]);
 
             })
@@ -44,18 +46,17 @@ function Books() {
         setEditModal(!setEditModal);
     }
 
+
+
     return (
         <div>
-            <div>
-                <HorizontalNavigator/> 
-            </div>
 
             {book.map(function (item, index) {
                 return (
-                    <div key={item.BookID}>
-                        <span style={{ textAlign: 'center' }}>{item.Title}</span>
-                        <FaPen size={20} onClick={ToggleModal} />
-                        <img src={item.Image} width={300} height={250} />
+                    // <Book Title={item.Title} ToggleModal={ToggleModal} BookID={item.BookID} />
+                    <div key={item.BookID} style={{ display: 'inline-block', width: '30%',margin:'1%' }} class="user-book" onClick={ToggleModal} >
+                        <img src={item.Image} width={300} height={250} class="book-image"  />
+                        <p class="book-title">{item.Title}</p>
                     </div>
                 )
             })}
