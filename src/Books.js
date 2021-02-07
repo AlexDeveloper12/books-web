@@ -64,6 +64,7 @@ function Books() {
             <div>
                 <EditBookModal
                     isVisible={editModal}
+                    cancel={ToggleModal}
                 />
             </div>
 

@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import './Modal.css';
 import Signup from './Signup';
 import Signin from './Signin';
 import Profile from './Profile';
