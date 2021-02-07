@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-
-import calls from './API/calls';
-
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 import TextField from '@material-ui/core/TextField';
 
@@ -18,6 +15,9 @@ import { FaBookOpen } from 'react-icons/fa';
 import swal from 'sweetalert';
 import axios from 'axios';
 
+import calls from './API/calls';
+
+
 function Signup({ history }) {
 
     const [email, setEmail] = useState('');
@@ -25,6 +25,7 @@ function Signup({ history }) {
     const [disableEmail, setDisableEmail] = useState(false);
     const [disablePassword, setDisablePassword] = useState(false);
     const [disableButton, setDisableButton] = useState(false);
+    const [loader, setLoader] = useState(false);
 
     const useStyles = makeStyles((theme) => ({
         paper: {
@@ -51,6 +52,8 @@ function Signup({ history }) {
 
     const SignInUser = () => {
 
+
+
         let errorString = '';
 
         const myData = JSON.stringify({
@@ -75,6 +78,7 @@ function Signup({ history }) {
             setDisableEmail(true);
             setDisablePassword(true);
             setDisableButton(true);
+            setLoader(true);
 
             axios({
                 method: 'POST',
@@ -86,13 +90,15 @@ function Signup({ history }) {
                     console.log(response);
                     if (response.status === 200) {
                         //here i will need to set jwt and refresh token then redirect
-                        localStorage.setItem('token', response.data.message.token);
-                        localStorage.setItem('refreshToken', response.data.message.refreshToken);
-                        history.push('/books');
 
                         setDisableEmail(false);
                         setDisablePassword(false);
                         setDisableButton(false);
+                        setLoader(false);
+                        localStorage.setItem('token', response.data.message.token);
+                        localStorage.setItem('refreshToken', response.data.message.refreshToken);
+                        //history.push('/books');
+
                     }
                 })
                 .catch(error => {
@@ -199,6 +205,8 @@ function Signup({ history }) {
 
 
             </div>
+
+            <ClipLoader loading={loader} size={30}/>
 
 
 
