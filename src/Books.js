@@ -43,7 +43,7 @@ function Books() {
     }
 
     const ToggleModal = () => {
-        setEditModal(!setEditModal);
+        setEditModal(!editModal);
     }
 
 

@@ -3,7 +3,6 @@ import React from 'react';
 import Modal from 'react-modal';
 import ModalBottomButtons from '../ModalBottomButtons';
 import EditBookTextInput from '../EditBookTextInput';
-import '/src/Modal.css';
 
 const customStyles = {
     content: {
@@ -21,7 +20,7 @@ const customStyles = {
 function EditBookModal({ isVisible,cancel,action }) {
 
     return (
-        <Modal isOpen={true} style={customStyles}>
+        <Modal isOpen={isVisible} style={customStyles} onRequestClose={cancel} >
             <div>
                 <EditBookTextInput
                     placeholder='Title'
