@@ -17,7 +17,7 @@ const customStyles = {
     }
 };
 
-function EditBookModal({ isVisible,cancel,action }) {
+function EditBookModal({ isVisible,cancel,action,title,description }) {
 
     return (
         <Modal isOpen={isVisible} style={customStyles} onRequestClose={cancel} >

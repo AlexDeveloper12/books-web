@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import calls from '../src/API/calls';
-import { FaPen } from 'react-icons/fa';
 import EditBookModal from './modals/EditBookModal';
-import HorizontalNavigator from './HorizontalNavigator';
-import Book from './Book';
+
 
 function Books() {
 
@@ -46,7 +44,13 @@ function Books() {
         setEditModal(!editModal);
     }
 
+    const Update = () => {
+        alert('Update method for now!');
+    }
 
+    const scrollToTop = () => {
+        window.scrollTo({top:0,left:0,behavior:'smooth'});
+    }
 
     return (
         <div>
@@ -54,17 +58,20 @@ function Books() {
             {book.map(function (item, index) {
                 return (
                     // <Book Title={item.Title} ToggleModal={ToggleModal} BookID={item.BookID} />
-                    <div key={item.BookID} style={{ display: 'inline-block', width: '30%',margin:'1%' }} class="user-book" onClick={ToggleModal} >
-                        <img src={item.Image} width={300} height={250} class="book-image"  />
+                    <div key={item.BookID} style={{ display: 'inline-block', width: '30%', margin: '1%' }} class="user-book" onClick={ToggleModal} >
+                        <img src={item.Image} width={300} height={250} class="book-image" />
                         <p class="book-title">{item.Title}</p>
                     </div>
                 )
             })}
 
+            <button onClick={() => scrollToTop()}>scroll to top </button>
+
             <div>
                 <EditBookModal
                     isVisible={editModal}
                     cancel={ToggleModal}
+                    action={Update}
                 />
             </div>
 
